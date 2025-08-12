@@ -32,17 +32,15 @@ class Game:
             'player': load_image('/entities/player.png')
         }
 
-        self.img = pygame.image.load('bin/images/clouds/cloud_1.png')
-        self.img.set_colorkey((0, 0, 0))
-                
-        self.img_pos = [160, 260]
-        self.img_movement = [False, False]
-        
-        self.collision_area = pygame.Rect(50, 50, 300, 50)
 
-        self.player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
+        #self.assets[]
+        
 
         self.movement = [False, False]
+        
+        self.player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
+
+        self.tilemap = Tilemap(self, tile_size=16)
         
     def run(self):
         running = True
@@ -54,48 +52,15 @@ class Game:
 
             self.DISPLAY.fill([14, 219, 248])
 
+            self.tilemap.render(self.DISPLAY)
+
             self.player.update((self.movement[1] - self.movement[0], 0))
             self.player.render(self.DISPLAY)
 
 
             scaled_DISPLAY = pygame.transform.scale_by(self.DISPLAY, 2)
             self.SCENE.blit(scaled_DISPLAY, [0, 0])
-
-            
-            ##            
-            ##            img_r = pygame.Rect(
-            ##                self.img_pos[0],
-            ##                self.img_pos[1],
-            ##                self.img.get_width(),
-            ##                self.img.get_height()
-            ##            )
-            ##            pygame.draw.rect(self.SCENE, [255, 0, 0], img_r)
-            ##            self.SCENE.blit(self.img, self.img_pos)
-            ##
-            ##            if img_r.colliderect(self.collision_area):
-            ##                pygame.draw.rect(self.SCENE, [255, 0, 255], self.collision_area)
-            ##            else:
-            ##                pygame.draw.rect(self.SCENE, [255, 255, 0], self.collision_area)
-
-
-
-
-            
-            ##            self.img_pos[1] += (self.img_movement[1] - self.img_movement[0]) * 5
-
-
-            ##            keys = pygame.key.get_pressed()
-            ##
-            ##            if keys[pygame.K_w]:
-            ##                self.img_pos[1] -= 5
-            ##            if keys[pygame.K_s]:
-            ##                self.img_pos[1] += 5
-            ##
-            ##            if keys[pygame.K_a]:
-            ##                self.img_pos[0] -= 5
-            ##                
-            ##            if keys[pygame.K_d]:
-            ##                self.img_pos[0] += 5     
+   
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

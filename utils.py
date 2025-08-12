@@ -15,7 +15,7 @@ def load_image(path):
 
 def load_images(path):
     images = []
-    for image_name in os.listdir(BASE_DIR_PATH + path):
+    for image_name in sorted(os.listdir(BASE_DIR_PATH + path)):
         img = load_image(path + '/' + image_name)
         images.append(img)
     return images

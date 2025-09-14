@@ -54,13 +54,16 @@ class Game:
 
             self.tilemap.render(self.DISPLAY)
 
-            self.player.update((self.movement[1] - self.movement[0], 0))
+            self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
             self.player.render(self.DISPLAY)
 
 
+            print(self.tilemap.physics_rects_around(self.player.pos))
+
+            # x2 screen size
             scaled_DISPLAY = pygame.transform.scale_by(self.DISPLAY, 2)
             self.SCENE.blit(scaled_DISPLAY, [0, 0])
-   
+
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -73,6 +76,8 @@ class Game:
                         self.movement[0] = True
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = True
+                    if event.key == pygame.K_UP:
+                        self.player.velocity[1] = -3                 
                         
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
